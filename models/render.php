@@ -20,7 +20,7 @@
 		require_once('views/footer.php');
 	}
 
-	function test_output() {
+	function render_output() {
 		echo '<pre>';
 		print_r($_REQUEST);
 		echo '</pre>';

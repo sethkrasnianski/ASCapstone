@@ -1,6 +1,6 @@
 <?php include('views/header.php') ?>
 <form action="." method="post">
-	<input type="hidden" name="action" value="add-account" />
+	<input type="hidden" name="action" value="addAccount" />
 	<input type="text" name="FirstName" placeholder="First Name" />
 	<input type="text" name="MiddleName" placeholder="Middle Name" />
 	<input type="text" name="LastName" placeholder="Last Name" />
@@ -15,6 +15,6 @@
 	<input type="text" name="DOB" placeholder="DOB" />
 	<input type="text" name="Username" placeholder="Username" />
 	<input type="text" name="Password" placeholder="Password" />
-	<input type="submit" name="submit" value="Create Account">
+	<input type="submit" name="submit" value="Create Account" class="button">
 </form>
 <?php include('views/footer.php') ?>

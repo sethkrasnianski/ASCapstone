@@ -1,6 +1,6 @@
 <?php 
 
-	function validate_create_account($user) {
+	function validateNewUser($user) {
 		if(is_array($user)) {
 		   	if(	$user['FirstName'] === "" ||
 		   		$user['MiddleName'] === ""

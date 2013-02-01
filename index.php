@@ -1,8 +1,7 @@
 <?php 
 require_once('models/db.php');
 require_once('models/render.php');
-require_once('models/model-validate.php');
-require_once('models/model-users.php');
+require_once('models/users.php');
 
 if (isset($_REQUEST['action']))
 {
@@ -15,32 +14,35 @@ else
 
 switch ($action):
 	case 'login':
-	include 'views/view-login.php';
+	include 'views/login.php';
 	break;
 
+	// Testing db
 	case 'add-test':
 	include 'views/success.php';
 	break;
 
-	case 'create-account':
-	include 'views/view-create-account.php';
+	case 'createAccount':
+	include 'views/createAccount.php';
 	break;
 
-	case 'add-account':
-	include 'views/view-dashboard.php';
-	if(validate_create_account($_REQUEST) !== "") {
-		echo validate_create_account($_REQUEST);
-	} else {
+	case 'addAccount':
+	require_once 'models/createAccount.php';
+	include 'views/dashboard.php';
+	if(validateNewUser($_REQUEST) !== "") {
+		echo validateNewUser($_REQUEST);
 		addUser($_REQUEST);
+	} else {
+		echo validateNewUser($_REQUEST);
 	}
 	break;
 
 	case 'validateLogin':
-	//require 'model-login.php';
+	require_once 'model-login.php';
 	break;
 
 	default:
 		$error = 'Unknown action: $action';
-		include('view-error.php');
+		include('error.php');
 endswitch;
 

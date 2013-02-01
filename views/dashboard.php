@@ -1,3 +1,3 @@
 <?php get_header(); ?>
-	<?php echo $_POST['error']; ?>
+	Welcome
 <?php get_footer(); ?>

@@ -1,5 +1,5 @@
 <?php 
-$br = '<br/>';
+
 if(!isset($_SESSION)) {
      session_start();
 }
