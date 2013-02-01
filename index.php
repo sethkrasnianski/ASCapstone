@@ -38,7 +38,17 @@ switch ($action):
 	break;
 
 	case 'validateLogin':
-	require_once 'model-login.php';
+	require_once 'models/login.php';
+	$username = $_REQUEST['User'];
+	$password = $_REQUEST['Pass'];
+	if (verifyPassword($username,$password))
+	{
+		include 'views/login.php';
+	}
+	else
+	{
+		include 'views/login.php';
+	}
 	break;
 
 	default:
