@@ -1,7 +1,7 @@
 <?php 
-session_start();
-
-require('models/model-users.php');
+require_once('models/db.php');
+require_once('models/render.php');
+require_once('models/users.php');
 
 if (isset($_REQUEST['action']))
 {
@@ -14,15 +14,45 @@ else
 
 switch ($action):
 	case 'login':
-	include 'views/view-login.php';
+	include 'views/login.php';
+	break;
+
+	// Testing db
+	case 'add-test':
+	include 'views/success.php';
+	break;
+
+	case 'createAccount':
+	include 'views/createAccount.php';
+	break;
+
+	case 'addAccount':
+	require_once 'models/createAccount.php';
+	include 'views/dashboard.php';
+	if(validateNewUser($_REQUEST) !== "") {
+		echo validateNewUser($_REQUEST);
+		addUser($_REQUEST);
+	} else {
+		echo validateNewUser($_REQUEST);
+	}
 	break;
 
 	case 'validateLogin':
-	//require 'model-login.php';
+	require_once 'models/login.php';
+	$username = $_REQUEST['User'];
+	$password = $_REQUEST['Pass'];
+	if (verifyPassword($username,$password))
+	{
+		include 'views/login.php';
+	}
+	else
+	{
+		include 'views/login.php';
+	}
 	break;
 
 	default:
 		$error = 'Unknown action: $action';
-		include('view-error.php');
+		include('error.php');
 endswitch;
 
