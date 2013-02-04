@@ -4,7 +4,7 @@ function getUserFromUsername($username)
 	/* @var db PDO */
 	global $db;
 
-	$query = 'SELECT * FROM UserTable WHERE $Username = :Username';
+	$query = 'SELECT * FROM UserTable WHERE Username = :Username';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':Username', $username);
 	$statement->execute();
