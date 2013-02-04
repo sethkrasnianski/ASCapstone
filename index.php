@@ -1,4 +1,6 @@
-<?php 
+<?php
+session_start();
+
 require_once('models/db.php');
 require_once('models/render.php');
 require_once('models/users.php');
@@ -27,13 +29,13 @@ switch ($action):
 	break;
 
 	case 'addAccount':
-	require_once 'models/createAccount.php';
-	include 'views/dashboard.php';
-	if(validateNewUser($_REQUEST) !== "") {
-		echo validateNewUser($_REQUEST);
+	require_once 'models/addAccount.php';
+	if(validateNewUser($_REQUEST) === true) {
 		addUser($_REQUEST);
+		include 'views/dashboard.php';
 	} else {
-		echo validateNewUser($_REQUEST);
+		$error = "Please fill out the required fields indicated with *";
+		include 'views/createAccount.php';
 	}
 	break;
 
@@ -47,12 +49,12 @@ switch ($action):
 	}
 	else
 	{
-		include 'views/login.php';
+		include 'views/dashboard.php';
 	}
 	break;
 
 	default:
-		$error = 'Unknown action: $action';
-		include('error.php');
+		$error = "Unknown request: $action";
+		include 'views/errors.php';
 endswitch;
 

@@ -1,4 +1,3 @@
 <?php get_header(); ?>
-	<?php get_nav('Test Dash'); ?>
-	Welcome
+	<?php echo $error; ?>
 <?php get_footer(); ?>

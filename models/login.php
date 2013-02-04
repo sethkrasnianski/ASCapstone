@@ -30,7 +30,6 @@ function verifyPassword($username, $password)
 		}
 
 	}
-
 	else
 	{
 		//no record for username found

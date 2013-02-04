@@ -3,11 +3,22 @@
 	function validateNewUser($user) {
 		if(is_array($user)) {
 		   	if(	$user['FirstName'] === "" ||
-		   		$user['MiddleName'] === ""
+		   		$user['LastName'] === "" ||
+		   		$user['Company'] === "" ||
+		   		$user['Company'] === "" ||
+		   		$user['Street'] === "" ||
+		   		$user['City'] === "" ||
+		   		$user['State'] === "" ||
+		   		$user['Zip'] === "" ||
+		   		$user['Phone'] === "" ||
+		   		$user['Email'] === "" ||
+		   		$user['Username'] === "" ||
+		   		$user['Password'] === ""
 		   	){
-		    	return 'Please fill required fields.';
+		    	return false;
 		    } else {
-		    	return 'Account Created';
+
+		    	return true;
 		    }
 		}
 		// $user['FirstName']);
