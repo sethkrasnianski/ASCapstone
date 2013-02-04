@@ -83,6 +83,7 @@ h1 {
 }
 
 	.button:hover {
+		border:none;
 		background: #008F3D;
 		-moz-box-shadow: 0px 0px 5px #333;
 		-webkit-box-shadow: 0px 0px 5px #333;
@@ -90,6 +91,7 @@ h1 {
 	}
 
 	.button:active {
+		border:none;
 		background-color: #00C964;
 		-moz-box-shadow: inset 0px 0px 5px #333;
 		-webkit-box-shadow: inset 0px 0px 5px #333;
@@ -104,7 +106,7 @@ input {
 	padding: 10.5px;
 }
 
-input[type='text']{
+input{
 	font-size: 15px;
 	width: 325px;
 	border: 1px solid transparent;
@@ -113,16 +115,16 @@ input[type='text']{
 	-webkit-box-shadow: 0px 0px 2px #333;
 	box-shadow: 0px 0px 2px #333;
 }
-	input[type='text']:hover{
+	input:hover{
 		border:1px solid #00C964;
 	}
 
-	input[type='text']:focus{
+	input:focus{
 		outline:1px solid #00C964;
 		border:1px solid #00C964;1
 	}
 
-input[type='text'], #login-box {border-radius: 3px;}
+input, #login-box {border-radius: 3px;}
 
 /* Nav */
 
@@ -254,3 +256,19 @@ header nav.bottom {
 			#login-box .options a:hover {
 				text-decoration: none;
 			}
+
+/* Forgot Password */
+
+#forgotPassword input[type='text'], #forgotPassword input[type='submit'] {
+	float: left;
+}
+
+#forgotPassword input[type='submit'] {
+	width: 150px;
+	display: block;
+	margin-right: 25px;
+}
+
+#forgotPassword input[type='text'] {
+	width: 60%;
+}

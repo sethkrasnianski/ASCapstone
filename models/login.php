@@ -1,4 +1,5 @@
 <?php
+
 function getUserFromUsername($username)
 {
 	/* @var db PDO */
@@ -8,7 +9,8 @@ function getUserFromUsername($username)
 	$statement = $db->prepare($query);
 	$statement->bindValue(':Username', $username);
 	$statement->execute();
-	$results = $statment->fetch();
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
 	return $results;
 }
 

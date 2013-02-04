@@ -5,7 +5,7 @@
 			<input type="hidden" name="action" value="validateLogin">
 			<h1>Login</h1>
 			<input type="text" name="User" placeholder="Username"/>
-			<input type="text" name="Pass" placeholder="Password"/>
+			<input type="password" name="Pass" placeholder="Password"/>
 			<input class="button"type="submit" name="submit" value="Login"/>
 				<div class="options">
 					<a href="?action=createAccount">Create an account</a>

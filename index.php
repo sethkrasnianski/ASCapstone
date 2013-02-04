@@ -49,8 +49,19 @@ switch ($action):
 	}
 	else
 	{
+		// Add User key
+		$_SESSION['Username'] = $username;
+		$_SESSION['Password'] = $password;
 		include 'views/dashboard.php';
 	}
+	break;
+
+	case 'forgotPassword':
+	include 'views/forgotpassword.php';
+	break;
+
+	case 'resetPassword':
+	require_once 'models/resetPassword.php';
 	break;
 
 	default:
