@@ -1,4 +1,6 @@
-<?php 
+<?php
+session_start();
+
 require_once('models/db.php');
 require_once('models/render.php');
 require_once('models/users.php');
@@ -9,10 +11,10 @@ if (isset($_REQUEST['action']))
 }
 else
 {
-	$action = 'login'; // default page
+	$action = 'login'; // default pageww
 }
 
-switch ($action):
+switch ($action) {
 	case 'login':
 	include 'views/login.php';
 	break;
@@ -27,13 +29,13 @@ switch ($action):
 	break;
 
 	case 'addAccount':
-	require_once 'models/createAccount.php';
-	include 'views/dashboard.php';
-	if(validateNewUser($_REQUEST) !== "") {
-		echo validateNewUser($_REQUEST);
+	require_once 'models/addAccount.php';
+	if(validateNewUser($_REQUEST) === true) {
 		addUser($_REQUEST);
+		include 'views/dashboard.php';
 	} else {
-		echo validateNewUser($_REQUEST);
+		$error = "Please fill out the required fields indicated with *";
+		include 'views/createAccount.php';
 	}
 	break;
 
@@ -47,12 +49,38 @@ switch ($action):
 	}
 	else
 	{
+		// Add User key
+		$_SESSION['Username'] = $username;
+		$_SESSION['Password'] = $password;
+		include 'views/dashboard.php';
+	}
+	break;
+
+	case 'forgotPassword':
+	include 'views/forgotpassword.php';
+	break;
+
+	case 'resetPassword':
+	require_once 'models/login.php';
+	require_once 'models/resetPassword.php';
+	$dob = $_REQUEST['DOB'];
+	if (verifyDOB($dob))
+	{
 		include 'views/login.php';
+	}
+	else
+	{
+		// Add User key
+		$_SESSION['Username'] = $username;
+		$_SESSION['Password'] = $password;
+		$test = verifyDOB($dob);
+		include 'views/resetPassword.php';
 	}
 	break;
 
 	default:
-		$error = 'Unknown action: $action';
-		include('error.php');
-endswitch;
+		$error = "Unknown request: $action";
+		include 'views/errors.php';
+	break;
+}
 
