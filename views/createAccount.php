@@ -15,7 +15,7 @@
 			<input type="text" name="Zip" placeholder="Zip*" class="Zip" value="<?php echo $_POST['Zip']; ?>" />
 			<input type="text" name="Phone" placeholder="Phone*" class="Phone left" value="<?php echo $_POST['Phone']; ?>" />
 			<input type="text" name="Email" placeholder="Email*" class="Email" value="<?php echo $_POST['Email']; ?>" />
-			<input type="text" name="DOB" placeholder="DOB" class="DOB left" value="<?php echo $_POST['DOB']; ?>" />
+			<input type="text" name="DOB" placeholder="DOB*" class="DOB left" value="<?php echo $_POST['DOB']; ?>" />
 			<input type="text" name="Username" placeholder="Username*" class="Username" value="<?php echo $_POST['Username']; ?>" />
 			<input type="password" name="Password" placeholder="Password*" class="Password left" value="<?php echo $_POST['Password']; ?>" />
 			<input type="submit" name="submit" value="Create Account" class="button submit">

@@ -1,35 +1,36 @@
-<?php
+<?php 
 
-function getUserFromUsername($username)
+function getUserFromDob($dob)
 {
 	/* @var db PDO */
 	global $db;
 
-	$query = 'SELECT * FROM UserTable WHERE Username = :Username';
+	$query = 'SELECT * FROM UserTable WHERE DOB = :DOB';
 	$statement = $db->prepare($query);
-	$statement->bindValue(':Username', $username);
+	$statement->bindValue(':DOB', $dob);
 	$statement->execute();
 	$results = $statement->fetchAll();
 	$statement->closeCursor();
 	return $results;
 }
 
-function verifyPassword($username, $password)
+function verifyDOB($dob)
 {
-	$user = getUserFromUsername($username);
+	$_dob = getUserFromDob($dob);
 
 	if (isset($user))
 	{
-		if ($password == $user['Password'])
+		if ($_dob == $dob['dob'])
 		{
 			//username was found and password is a match
-			return true;
+			return $_dob;
 		}
 		else
 		{
 			//password does not match record for username
 			return false;
 		}
+
 	}
 	else
 	{
@@ -37,3 +38,5 @@ function verifyPassword($username, $password)
 		return false;
 	}
 }
+
+?>

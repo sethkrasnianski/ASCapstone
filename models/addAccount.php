@@ -13,6 +13,7 @@
 		   		$user['Phone'] === "" ||
 		   		$user['Email'] === "" ||
 		   		$user['Username'] === "" ||
+		   		$user['DOB'] === "" ||
 		   		$user['Password'] === ""
 		   	){
 		    	return false;

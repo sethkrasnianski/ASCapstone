@@ -11,10 +11,10 @@ if (isset($_REQUEST['action']))
 }
 else
 {
-	$action = 'login'; // default page
+	$action = 'login'; // default pageww
 }
 
-switch ($action):
+switch ($action) {
 	case 'login':
 	include 'views/login.php';
 	break;
@@ -61,11 +61,26 @@ switch ($action):
 	break;
 
 	case 'resetPassword':
+	require_once 'models/login.php';
 	require_once 'models/resetPassword.php';
+	$dob = $_REQUEST['DOB'];
+	if (verifyDOB($dob))
+	{
+		include 'views/login.php';
+	}
+	else
+	{
+		// Add User key
+		$_SESSION['Username'] = $username;
+		$_SESSION['Password'] = $password;
+		$test = verifyDOB($dob);
+		include 'views/resetPassword.php';
+	}
 	break;
 
 	default:
 		$error = "Unknown request: $action";
 		include 'views/errors.php';
-endswitch;
+	break;
+}
 
