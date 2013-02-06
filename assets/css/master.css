@@ -170,20 +170,33 @@ header nav.bottom {
 		color: #333;
 	}
 
-	header nav.bottom .left, header nav.bottom .right {
+	header nav.top .left, header nav.bottom .right {
 		position: absolute;
-		margin-top: 15px;
-		display: none;
 	}
 
-	header nav.bottom .left {
+	header nav.top .left {
 		left: 0;
 		margin-left: 30px;
+		width: 136px;
 	}
 
+		header nav.top .left a {
+			color: #fff;
+		}
+			header nav.top .left a:nth-child(1) {
+				color: #00C964;
+				float: left;
+			}
+
+			header nav.top .left a:nth-child(2) {
+				float: right;
+			}
+
 	header nav.bottom .right {
+		display: none;
 		right: 0;
 		margin-right: 30px;
+		margin-top: 15px;
 	}
 
 /* Page */

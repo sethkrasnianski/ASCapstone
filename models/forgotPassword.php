@@ -23,7 +23,6 @@ function askSecurityQuestion($user)
 
 	$randNum = mt_rand(1,3);
 	$questionAndAnswer = array();
-
 	switch ($randNum) 
 	{
 		case '1':
