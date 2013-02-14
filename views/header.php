@@ -6,3 +6,4 @@
 	<?php echo render_js("main.js"); ?>
 </head>
 <body>
+<!-- test -->
