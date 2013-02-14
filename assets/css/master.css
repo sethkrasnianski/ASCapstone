@@ -9,7 +9,6 @@
          url('../fonts/BEBAS___-webfont.svg#BEBASRegular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -21,7 +20,6 @@
          url('../fonts/SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 /* Global */
@@ -50,12 +48,54 @@ h1 {
 	color: #fff;
 }
 
+.col-40, .col-45 {
+	display: inline-block;
+}
+
+.col-40 {
+	width: 40%;	
+}
+
+.col-45 {
+	width: 45%;
+}
+
+	.col-45.second {
+		float: right;
+	}
+
+.col-55 {
+	width: 55%;
+	float: right;
+}
+
+.error, .success {
+	text-align: center;
+}
+
+	.error {
+		color: #FF0000;
+		margin: 15px;
+	}
+
+	.success {
+		color: #00C964;
+	}
+
+.page {margin-top: 38px!important;}
+
+.clearall {
+  clear: both;
+  width: 100%;
+  height: 0px;
+}
+
 .center, form {
 	margin: 0 auto;
 	position: relative;
 }
 	.center.page {
-		width: 960px;
+		max-width: 960px;
 	}
 
 	.center.form {
@@ -98,15 +138,15 @@ h1 {
 		box-shadow: inset 0px 0px 5px #333;
 	}
 
-input, h1 {
+input, h1, textarea {
 	margin-bottom: 50px;
 }
 
-input {
+input, textarea {
 	padding: 10.5px;
 }
 
-input{
+input, textarea{
 	font-size: 15px;
 	width: 325px;
 	border: 1px solid transparent;
@@ -115,16 +155,20 @@ input{
 	-webkit-box-shadow: 0px 0px 2px #333;
 	box-shadow: 0px 0px 2px #333;
 }
-	input:hover{
+	input:hover, textarea:hover{
 		border:1px solid #00C964;
 	}
 
-	input:focus{
+	input:focus, textarea:focus{
 		outline:1px solid #00C964;
 		border:1px solid #00C964;1
 	}
 
-input, #login-box {border-radius: 3px;}
+input.small {
+	width: 45px;
+}
+
+input, #login-box, textarea {border-radius: 3px;}
 
 /* Nav */
 
@@ -199,6 +243,25 @@ header nav.bottom {
 		margin-top: 15px;
 	}
 
+		header nav.bottom .right a {
+			text-decoration: none;
+			margin-right: 50px;
+		}
+
+			header nav.bottom .right .plus {
+				color: #00C964;
+				font-weight: bolder;
+				font-size: 22px;
+			}
+
+			header nav.bottom .right a.last {
+				margin: 0;
+			}
+
+		header nav.bottom .right a:hover {
+			text-decoration: underline;
+		}
+
 /* Page */
 
 .page .button.submit {
@@ -212,13 +275,16 @@ header nav.bottom {
 }
 
 	#createAccount {
-		width: 705px;
+		max-width: 705px;
 	}
 
-	.page .error {
-		text-align: center;
-		color: #FF0000;
-		margin: 15px;
+		#createAccount .button.submit {
+			width: 200px;
+		}
+
+
+	.page h1 {
+		color: #00C964;
 	}
 
 /* Login */
@@ -253,6 +319,10 @@ header nav.bottom {
 		color: #fff;
 	}
 
+	#login-box .error {
+		margin: 0;
+	}
+
 	#login-box .options {
 		position: absolute;
 		right: 0;
@@ -271,17 +341,55 @@ header nav.bottom {
 			}
 
 /* Forgot Password */
-
-#forgotPassword input[type='text'], #forgotPassword input[type='submit'] {
-	float: left;
-}
-
-#forgotPassword input[type='submit'] {
-	width: 150px;
-	display: block;
-	margin-right: 25px;
-}
-
-#forgotPassword input[type='text'] {
+#forgotPassword {
+	margin: 0 auto;
 	width: 60%;
 }
+
+	#forgotPassword input[type='text'], #forgotPassword input[type='submit'] {
+	}
+
+	#forgotPassword input[type='submit'] {
+		width: 150px;
+		display: block;
+		margin-right: 25px;
+	}
+
+	#forgotPassword input[type='text'] {
+		width: 100%;
+	}
+
+/* Dashboard */
+
+.page .welcome {
+	text-align: center;
+}
+
+	.page .welcome h1 {
+		margin-bottom: 0;
+	}
+
+	.page .welcome p {
+		margin-top: 0;
+	}
+
+/* New Order */
+.order .item.narrow, .order .item.semiNarrow input, .order .item.semiNarrow label {float: right;}
+.order .item.medium input, .order .item.wide input, #newOrder .submit {float: right;}
+.order .item label, .order .item input {display: inline-block;}
+
+#newOrder .submit {width: 40%; float: left;}
+.order .item label {font-size: 22px;}
+.order .item textarea {width: 100%; height: 170px; margin-top: 15px;}
+.order .item.semiNarrow input {margin-left: 105px;}
+.order .heightfix {line-height: 38px;}
+.order .heightfixsmall {line-height: 25px;}
+.order .item.narrow.first {margin-right: 25px;}
+.order .item.narrow input {margin-left: 25px;}
+.order .item.medium input {width: 60%;}
+.order .item.medium input {width: 50%;}
+
+/* Issues */
+
+.issue {position: absolute; right: 0; bottom: 5%;}
+.issue a {text-decoration: none; color: #000;}

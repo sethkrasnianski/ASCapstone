@@ -2,6 +2,7 @@ $(function() {
 
 	var menu = false;
 
+	// Menu toggle
 	$('.menu').click(function() {
 		var left = $('header nav.bottom .left');
 		var right = $('header nav.bottom .right');
@@ -17,6 +18,9 @@ $(function() {
 			right.hide();
 		}
 	});
+
+	// Success Fade out
+	$('.fadeout').delay(4000).fadeOut();
 
 });
 

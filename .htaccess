@@ -1,0 +1,2 @@
+#RewriteEngine on 
+#RewriteRule ([^/\.]+)/?.html$ viewPage.php?ID=$1 [L]

@@ -1,13 +1,25 @@
 <?php
+
+function createNewOrder($userID, $inactive) {
+	global $db;
+	$query = "INSERT INTO Orders (UserID, Inactive) VALUES (:UserID, :Inactive)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $userID);
+	$statement->bindValue(':Inactive', $inactive);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+
 function addOrder($order)
 {
 	/* @var $db PDO */
 	global $db;
 
-	$query = 'INSERT INTO OrderDetailTable (OrderID, Quantity, ProductID, StatusID,
-		ProjectedShipDate, OrderDate, TaskAssignmentID, ActualShipDate, PONumber, SpecialAssignment1, SpecialAssignment2, SpecialAssignment3, PricePaid, CommentID,) 
-                VALUES (:OrderID, :Quantity, :ProductID, :StatusID, :ProjectedShipDate, 
-                :OrderDate, :TaskAssignmentID, :ActualShipDate, :PONumber, :SpecialAssignment1, :SpecialAssignment2, :SpecialAssignment3, :PricePaid, :CommentID)';
+	$query = 'INSERT INTO OrderDetail (OrderID, Quantity, ProductID, StatusID,
+				ProjectedShipDate, OrderDate, TaskID, ActualShipDate, PONumber, SpecialAssignment1, SpecialAssignment2, SpecialAssignment3, PricePaid, Comments) 
+              VALUES (:OrderID, :Quantity, :ProductID, :StatusID, :ProjectedShipDate, 
+                :OrderDate, :TaskID, :ActualShipDate, :PONumber, :SpecialAssignment1, :SpecialAssignment2, :SpecialAssignment3, :PricePaid, :Comments)';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':OrderID', $order['OrderID']);
 	$statement->bindValue(':Quantity', $order['Quantity']);
@@ -15,15 +27,14 @@ function addOrder($order)
 	$statement->bindValue(':StatusID', $order['StatusID']);
 	$statement->bindValue(':ProjectedShipDate', $order['ProjectedShipDate']);
 	$statement->bindValue(':OrderDate', $order['OrderDate']);
-	$statement->bindValue(':TaskAssignmentID', $order['TaskAssignmentID']);
+	$statement->bindValue(':TaskID', $order['TaskID']);
 	$statement->bindValue(':ActualShipDate', $order['ActualShipDate']);
 	$statement->bindValue(':PONumber', $order['PONumber']);
 	$statement->bindValue(':SpecialAssignment1', $order['SpecialAssignment1']);
 	$statement->bindValue(':SpecialAssignment2', $order['SpecialAssignment2']);
 	$statement->bindValue(':SpecialAssignment3', $order['SpecialAssignment3']);	
 	$statement->bindValue(':PricePaid', $order['PricePaid']);
-	$statement->bindValue(':CommentID', $order['CommentID']);
-
+	$statement->bindValue(':Comments', $order['Comments']);
 	$statement->execute();
 	$statement->closeCursor();
 }

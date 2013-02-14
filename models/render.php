@@ -30,4 +30,8 @@
 		echo "</pre>";
 	}
 
+	function render_error($message) {
+		$error = $message;
+		include 'views/errors.php';
+	}
 ?>

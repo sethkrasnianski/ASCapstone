@@ -6,18 +6,18 @@ function getUserfromEmail($email)
 	/* @var db PDO */
 	global $db;
 
-	$query = 'SELECT * FROM UserTable WHERE $email = :email';
+	$query = 'SELECT * FROM UserTable WHERE email = :email';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':email', $email);
 	$statement->execute();
-	$results = $statment->fetch();
+	$results = $statement->fetch();
 	return $results;
 }
 
 //function will pick a security question to ask and return the question
 //and answer as an array.
 //should only be called if it is verified that $user isset
-function askSecurityQuestion($user)
+function askSecurityQuestion($email)
 {
 	$user = getUserFromEmail($email);
 
@@ -59,4 +59,17 @@ function verifyAnswer($userAnswer, $correctAnswer)
 		// answer is incorrect
 		return false;
 	}
+}
+
+function updatePassword($email, $password) {
+	/* @var db PDO */
+	global $db;
+
+	$query = 'UPDATE UserTable Set Password = :password WHERE Email = :email';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':email', $email);
+	$statement->bindValue(':password', $password);
+	$statement->execute();
+	$results = $statement->fetch();
+	return $results;
 }

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 	<?php get_nav("Create New User"); ?>
-	<div class="center page">
+	<div class="page">
 		<div class="error"><?php echo $error; ?></div>
 		<form action="." method="post" id="createAccount">
 			<input type="hidden" name="action" value="addAccount" />

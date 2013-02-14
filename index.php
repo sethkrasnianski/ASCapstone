@@ -15,29 +15,28 @@ else
 }
 
 switch ($action) {
+
+	// LOGIN
 	case 'login':
+	$_SESSION['newPassword'] = false;
+	echo $_SESSION['newPassword'];
 	include 'views/login.php';
 	break;
 
-	// Testing db
-	// case 'add-test':
-	// include 'views/success.php';
-	// break;
-
-	// LOGIN
+	// VALIDATE LOGIN
 	case 'validateLogin':
 	require_once 'models/login.php';
 	$username = $_REQUEST['User'];
 	$password = $_REQUEST['Pass'];
-	if (verifyPassword($username, $password) === false)
-	{
+	$userInfo = getUserFromUsername($username);
+	if (verifyPassword($username, $password) == false) {
+		$_SESSION['loginFailed'] = true;
 		include 'views/login.php';
-		echo 'false!';
 	}
-	else
-	{
+	else {
 		$user = getUserFromUsername($username);
 		// SAVE USER
+		$_SESSION['UserID'] = $user['UserID'];
 		$_SESSION['Username'] = $user['Username'];
 		$_SESSION['Password'] = $user['Password'];
 		$_SESSION['FirstName'] = $user['FirstName'];
@@ -54,6 +53,7 @@ switch ($action) {
 	include 'views/createAccount.php';
 	break;
 
+	// ADD ACCOUNT
 	case 'addAccount':
 	require_once 'models/addAccount.php';
 	require_once 'models/addAccount.php';
@@ -69,26 +69,47 @@ switch ($action) {
 	// FORGOT PASSWORD
 	case 'forgotPassword':
 	require_once 'models/forgotPassword.php';
-	// $email = $_POST['']
 	include 'views/forgotpassword.php';
 	break;
 
-	// RESET PASSWORD
-	case 'resetPassword':
-	require_once 'models/login.php';
-	require_once 'models/resetPassword.php';
-	$dob = $_REQUEST['DOB'];
-	if (verifyDOB($dob))
-	{
-		include 'views/login.php';
+	// SECURITY QUESTIONS
+	case 'securityQuestions':
+	require_once 'models/forgotPassword.php';
+	$email = $_REQUEST['email'];
+	$_SESSION['Email'] = $email;	
+	if (getUserfromEmail($_SESSION['Email']) == "") {
+		include 'views/forgotPassword.php';
+	} else {
+		$question = askSecurityQuestion($email);
+		$_SESSION['question'] = $question['question'];
+		$_SESSION['correctAnswer'] = $question['answer'];
+		include 'views/securityQuestions.php';
 	}
-	else
-	{
-		// Add User key
-		$_SESSION['Username'] = $username;
-		$_SESSION['Password'] = $password;
-		$test = verifyDOB($dob);
-		include 'views/resetPassword.php';
+	break;
+
+	// PASSWORD RESET
+	case 'passwordReset':
+	require_once 'models/forgotPassword.php';
+	$userAnswer = $_REQUEST['userAnswer'];
+	$correctAnswer = $_SESSION['correctAnswer'];
+	if(verifyAnswer($userAnswer, $correctAnswer) == false) {
+		include 'views/securityQuestions.php';
+	} else {
+		include 'views/passwordReset.php';
+	}
+	break;
+
+	// VALIDATE NEW PASSWORD
+	case 'validateNewPassword':
+	require_once 'models/forgotPassword.php';
+	$password1 = $_REQUEST['password1'];
+	$password2 = $_REQUEST['password2'];
+	if($password1 === $password2) {
+		updatePassword($_SESSION['Email'], $password1);
+		$_SESSION['newPassword'] = true;
+		include 'views/login.php';
+	} else {
+		include 'views/passwordReset.php';	
 	}
 	break;
 
@@ -96,27 +117,53 @@ switch ($action) {
 	case 'dashboard':
 	require_once 'models/login.php';
 	require_once 'models/dashboard.php';
-	if (verifyPassword($_SESSION['Username'], $_SESSION['Password']))
+	if (!isset($_SESSION['Username']) && !isset($_SESSION['Password']))
 	{
 		include 'views/login.php';
 	}
 	else
 	{
-		$user = getUserFromUsername();
+		$user = getUserFromUsername($_SESSION['Username']);
 		include 'views/dashboard.php';
+	}
+	break;
+
+	// NEW ORDER
+	case 'newOrder':
+	require_once 'models/orders.php';
+	// require_once 'models/products.php';
+	if(isset($_SESSION['UserID'])) {
+		createNewOrder($_SESSION['UserID'], 0);
+		include 'views/order.php';
+	} else {
+		render_error('Something went wrong.');
+	}
+	break;
+
+	// ALL ORDERS
+	case 'allOrders':
+	require_once 'models/orders.php';
+	if(isset($_SESSION['UserID'])) {
+		include 'views/allOrders.php';
+	} else {
+		render_error('Something went wrong.');
 	}
 	break;
 
 	// LOGOUT
 	case 'logOut':
-	session_destroy();
+	session_start();
+    session_unset();
+    session_destroy();
+    session_write_close();
+    setcookie(session_name(),'',0,'/');
+    session_regenerate_id(true);
 	include 'views/login.php';
 	break;
 
 	// UNKNOWN ACTION
 	default:
-		$error = "Unknown request: $action";
-		include 'views/errors.php';
+		render_error('Unknown request.');
 	break;
 }
 

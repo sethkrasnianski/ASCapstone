@@ -9,7 +9,7 @@ function getUserFromUsername($username)
 	$statement = $db->prepare($query);
 	$statement->bindValue(':Username', $username);
 	$statement->execute();
-	$results = $statement->fetchAll();
+	$results = $statement->fetch();
 	$statement->closeCursor();
 	return $results;
 }
@@ -18,21 +18,16 @@ function verifyPassword($username, $password)
 {
 	$user = getUserFromUsername($username);
 
-	if (isset($user))
-	{
-		if ($password == $user['Password'])
-		{
+	if (isset($user)) {
+		if ($user['Password'] === $password ) {
 			//username was found and password is a match
 			return true;
-		}
-		else
-		{
+		} else {
 			//password does not match record for username
 			return false;
 		}
-	}
-	else
-	{
+
+	} else {
 		//no record for username found
 		return false;
 	}
