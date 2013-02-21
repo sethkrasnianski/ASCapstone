@@ -1,5 +1,4 @@
 <?php
-//Baldwin Was here
 session_start();
 
 require_once('models/db.php');
@@ -37,13 +36,15 @@ switch ($action) {
 	else {
 		$user = getUserFromUsername($username);
 		// SAVE USER
+		$_SESSION['PermissionLevel'] = $user['PermissionLevel'];
+		$_SESSION['userHash'] = hash('haval256,4', 'The quick brown fox jumped over the lazy dog.') . hash('ripemd320', $username . $password) ;
 		$_SESSION['UserID'] = $user['UserID'];
 		$_SESSION['Username'] = $user['Username'];
 		$_SESSION['Password'] = $user['Password'];
 		$_SESSION['FirstName'] = $user['FirstName'];
 		$_SESSION['LastName'] = $user['LastName'];
 		$_SESSION['Company'] = $user['Company'];
-		$_SESSION['userHash'] = hash('haval256,4', 'The quick brown fox jumped over the lazy dog.') . hash('ripemd320', $username . $password) ;
+		// render_output($_SESSION);
 		include 'views/dashboard.php';
 	}
 	break;
@@ -57,9 +58,20 @@ switch ($action) {
 	// ADD ACCOUNT
 	case 'addAccount':
 	require_once 'models/addAccount.php';
-	require_once 'models/addAccount.php';
+	require_once 'models/login.php';
 	if(validateNewUser($_REQUEST) === true) {
+		// Get username
+		$_REQUEST['PermissionLevel'] = 3;
 		addUser($_REQUEST);
+		$user = getUserFromUsername($_REQUEST['Username']);
+		$_SESSION['PermissionLevel'] = $_REQUEST['PermissionLevel'];
+		$_SESSION['UserID'] = $user['UserID'];
+		$_SESSION['Username'] = $user['Username'];
+		$_SESSION['Password'] = $user['Password'];
+		$_SESSION['FirstName'] = $user['FirstName'];
+		$_SESSION['LastName'] = $user['LastName'];
+		$_SESSION['Company'] = $user['Company'];
+		$_SESSION['userHash'] = hash('haval256,4', 'The quick brown fox jumped over the lazy dog.') . hash('ripemd320', $username . $password) ;
 		include 'views/dashboard.php';
 	} else {
 		$error = "Please fill out the required fields indicated with *";
@@ -132,14 +144,31 @@ switch ($action) {
 	// NEW ORDER
 	case 'newOrder':
 	require_once 'models/orders.php';
+	require_once 'models/products.php';
 	// require_once 'models/products.php';
 	if(isset($_SESSION['UserID'])) {
 		createNewOrder($_SESSION['UserID'], 0);
+		$products = getAllProducts();
 		include 'views/order.php';
 	} else {
 		render_error('Something went wrong.');
 	}
 	break;
+
+	// PLACE ORDER
+	case 'placeOrder':
+	require_once 'models/orders.php';
+	if(isset($_REQUEST['submit'])) {
+		addOrder($_REQUEST);
+		$_SESSION['OrderPlaced'] = true;
+		$_SESSION['Message'] = 'Thank you for placing your order.';
+
+		include 'views/dashboard.php';
+	} else {
+		render_error('Something went wrong.');
+	}
+	break;
+
 
 	// ALL ORDERS
 	case 'allOrders':
@@ -160,6 +189,11 @@ switch ($action) {
     setcookie(session_name(),'',0,'/');
     session_regenerate_id(true);
 	include 'views/login.php';
+	break;
+
+	// ----- EMPLOYEE ----- //
+	case 'orderEmployee':
+	include 'views/order-employee.php';
 	break;
 
 	// UNKNOWN ACTION

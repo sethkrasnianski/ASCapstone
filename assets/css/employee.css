@@ -1,0 +1,41 @@
+.employee textarea {height: 110px!important;}
+
+.play {
+	display: inline-block;
+	left: 20px;
+	height: 70px;
+	border-radius:75px;
+	width: 70px;
+	font-family: 'heydings_controlsregular';
+	font-size: 50px;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	text-indent: 8px;
+	line-height: 50px;
+	-moz-text-shadow: 0px 0px 3px rgba(51, 51, 51, 0.5);
+	-webkit-text-shadow: 0px 0px 3px rgba(51, 51, 51, 0.5);
+	text-shadow: 0px 0px 3px rgba(51, 51, 51, 0.5);
+}
+.play.pause {
+	text-indent: 1px!important;
+}
+
+.play:hover {
+	-moz-box-shadow: 0px 0px 10px rgba(51, 51, 51, 1);
+	-webkit-box-shadow: 0px 0px 10px rgba(51, 51, 51, 1);
+	box-shadow: 0px 0px 10px rgba(51, 51, 51, 1);
+}
+
+.play:active {
+	-moz-box-shadow: inset 0px 0px 8px rgba(51, 51, 51, 1);
+	-webkit-box-shadow: inset 0px 0px 8px rgba(51, 51, 51, 1);
+	box-shadow: inset 0px 0px 8px rgba(51, 51, 51, 1);
+}
+
+.time {display: inline-block; margin-left: 146px; width: 65%; position: relative; top: -10px;}
+	.time.first {margin-left: 70px;}
+	.time label {float: left; margin-right: 15px;}
+	.time input {width: 50%;}	
+
+.saveTime {float: none!important; margin: auto!important;}

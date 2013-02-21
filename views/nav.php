@@ -6,9 +6,13 @@
 	</nav>
 	<nav class="bottom">
 		<div class="right">
-			<a href="?action=newOrder"><span class="plus">+</span> New Order</a>
+			<?php if($_SESSION['PermissionLevel'] === 3 || $_SESSION['PermissionLevel'] === 1) { ?>
+				<a href="?action=newOrder"><span class="plus">+</span> New Order</a>
+			<?php } ?>
 			<a href="?action=allOrders">All Orders</a>
-			<a href="#">Delete Order</a>
+			<?php if($_SESSION['PermissionLevel'] === 3 || $_SESSION['PermissionLevel'] === 1) { ?>
+				<a href="#">Delete Order</a>
+			<?php } ?>
 			<a href="#" class="last">Contact Us</a>
 		</div>
 	</nav>

@@ -4,28 +4,33 @@ function addUser($user) {
 	/* @var $db PDO */
 	global $db;
 
-	$query = 'INSERT INTO 
-		UserTable (FirstName, MiddleName, LastName, Company, Street, Street2, City, State, Zip, Phone, Email, DOB, Username, Password) 
-		VALUES 
-		(:FirstName, :MiddleName, :LastName, :Company, :Street, :Street2, :City, :State, :Zip, :Phone, :Email, :DOB, :Username, :Password)';
-	$statement = $db->prepare($query);
-	$statement->bindValue(':FirstName', $user['FirstName']);
-	$statement->bindValue(':MiddleName', $user['MiddleName']);
-	$statement->bindValue(':LastName', $user['LastName']);
-	$statement->bindValue(':Company', $user['Company']);
-	$statement->bindValue(':Street', $user['Street']);
-	$statement->bindValue(':Street2', $user['Street2']);
-	$statement->bindValue(':City', $user['City']);
-	$statement->bindValue(':State', $user['State']);
-	$statement->bindValue(':Zip', $user['Zip']);
-	$statement->bindValue(':Phone', $user['Phone']);
-	$statement->bindValue(':Email', $user['Email']);
-	$statement->bindValue(':DOB', $user['DOB']);	
-	$statement->bindValue(':Username', $user['Username']);
-	$statement->bindValue(':Password', $user['Password']);
+	try {
+		$query = 'INSERT INTO 
+			UserTable (FirstName, MiddleName, LastName, Company, Street, Street2, City, State, Zip, Phone, Email, DOB, Username, Password, PermissionLevel) 
+			VALUES 
+			(:FirstName, :MiddleName, :LastName, :Company, :Street, :Street2, :City, :State, :Zip, :Phone, :Email, :DOB, :Username, :Password, :PermissionLevel)';
+		$statement = $db->prepare($query);
+		$statement->bindValue(':FirstName', $user['FirstName']);
+		$statement->bindValue(':MiddleName', $user['MiddleName']);
+		$statement->bindValue(':LastName', $user['LastName']);
+		$statement->bindValue(':Company', $user['Company']);
+		$statement->bindValue(':Street', $user['Street']);
+		$statement->bindValue(':Street2', $user['Street2']);
+		$statement->bindValue(':City', $user['City']);
+		$statement->bindValue(':State', $user['State']);
+		$statement->bindValue(':Zip', $user['Zip']);
+		$statement->bindValue(':Phone', $user['Phone']);
+		$statement->bindValue(':Email', $user['Email']);
+		$statement->bindValue(':DOB', $user['DOB']);	
+		$statement->bindValue(':Username', $user['Username']);
+		$statement->bindValue(':Password', $user['Password']);
+		$statement->bindValue(':PermissionLevel', $user['PermissionLevel']);
 
-	$statement->execute();
-	$statement->closeCursor();
+		$statement->execute();
+		$statement->closeCursor();
+	} catch (PDOException $e) {
+		
+	}
 }
 
 function getUser($userID)

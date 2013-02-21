@@ -24,9 +24,9 @@
 		require_once "views/nav.php";
 	}
 
-	function render_output() {
+	function render_output($array) {
 		echo "<pre>";
-		print_r($_REQUEST);
+		print_r($array);
 		echo "</pre>";
 	}
 

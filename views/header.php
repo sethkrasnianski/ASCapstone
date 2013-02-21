@@ -2,8 +2,13 @@
 <head>
 	<title></title>
 	<?php echo render_css("master.css"); ?>
+	<?php echo render_css("jquery-ui.css"); ?>
 	<?php echo render_js("jquery.js"); ?>
+	<?php echo render_js("jquery-ui.js"); ?>
 	<?php echo render_js("main.js"); ?>
+	<!-- employee -->
+	<?php if($_SESSION['PermissionLevel'] <= 2) { ?>
+		<?php echo render_css("employee.css"); ?>
+	<?php } ?>
 </head>
-<body>
-<!-- test -->
+<body class="ease-4">
