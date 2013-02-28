@@ -2,6 +2,7 @@
 	<?php get_nav($_SESSION['Company']); ?>
 	<div class="page">
 		<div class="welcome">
+			<?php echo $_SESSION['UserID']; ?>
 			<?php if($_SESSION['PermissionLevel'] <= 2) { ?>
 				<?php echo "what's up admin / employee?" ?>
 			<?php } else { ?>

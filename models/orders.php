@@ -1,14 +1,14 @@
 <?php
 
-function createNewOrder($userID, $inactive) {
-	global $db;
-	$query = "INSERT INTO Orders (UserID, Inactive) VALUES (:UserID, :Inactive)";
-	$statement = $db->prepare($query);
-	$statement->bindValue(':UserID', $userID);
-	$statement->bindValue(':Inactive', $inactive);
-	$statement->execute();
-	$statement->closeCursor();
-}
+// function createNewOrder($userID, $inactive) {
+// 	global $db;
+// 	$query = "INSERT INTO Orders (UserID, Inactive) VALUES (:UserID, :Inactive)";
+// 	$statement = $db->prepare($query);
+// 	$statement->bindValue(':UserID', $userID);
+// 	$statement->bindValue(':Inactive', $inactive);
+// 	$statement->execute();
+// 	$statement->closeCursor();
+// }
 
 
 function addOrder($order)
@@ -16,12 +16,12 @@ function addOrder($order)
 	/* @var $db PDO */
 	global $db;
 
-	$query = 'INSERT INTO OrderDetail (OrderID, Quantity, ProductID, StatusID,
+	$query = 'INSERT INTO OrderDetail (UserID, Quantity, ProductID, StatusID,
 				ProjectedShipDate, OrderDate, TaskID, ActualShipDate, PONumber, SpecialAssignment1, SpecialAssignment2, SpecialAssignment3, PricePaid, Comments) 
-              VALUES (:OrderID, :Quantity, :ProductID, :StatusID, :ProjectedShipDate, 
+              VALUES (:UserID, :Quantity, :ProductID, :StatusID, :ProjectedShipDate, 
                 :OrderDate, :TaskID, :ActualShipDate, :PONumber, :SpecialAssignment1, :SpecialAssignment2, :SpecialAssignment3, :PricePaid, :Comments)';
 	$statement = $db->prepare($query);
-	$statement->bindValue(':OrderID', $order['OrderID']);
+	$statement->bindValue(':UserID', $order['UserID']);
 	$statement->bindValue(':Quantity', $order['Quantity']);
 	$statement->bindValue(':ProductID', $order['ProductID']);
 	$statement->bindValue(':StatusID', $order['StatusID']);
@@ -38,19 +38,16 @@ function addOrder($order)
 	$statement->execute();
 	$statement->closeCursor();
 }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-        function getOrderDetail($OrderDetailID)
+
+        function getOrderDetail($userID)
 {
 	/* @var $db PDO */
 	global $db;
-	$query = 'SELECT * FROM OrderDetailTable WHERE OrderDetailID = :OrderDetailID;';
+	$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID;';
 	$statement = $db->prepare($query);
-	$statement->bindValue(':OrderID', $OrderID);
+	$statement->bindValue(':UserID', $userID);
 	$statement->execute();
-	$results = $statement->fetch();
+	$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 	$statement->closeCursor();
 	return $results;
 }
@@ -85,17 +82,16 @@ function addOrder($order)
 	$statement->closeCursor();
         
 }
-        function getUserOrders ($userID)
-        {
+        function getUserOrders($userID) {
             /* @var $db PDO */
-	global $db;
-	$query = 'SELECT * FROM OrderTable WHERE UserID = :UserID;';
-	$statement = $db->prepare($query);
-	$statement->bindValue(':UserID', $UserID);
-	$statement->execute();
-	$results = $statement->fetch();
-	$statement->closeCursor();
-	return $results;
+			global $db;
+			$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID';
+			$statement = $db->prepare($query);
+			$statement->bindValue(':UserID', $userID);
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			$statement->closeCursor();
+			return $results;
         }
         
         

@@ -130,14 +130,23 @@ switch ($action) {
 	case 'dashboard':
 	require_once 'models/login.php';
 	require_once 'models/dashboard.php';
+	require_once 'models/orders.php';
 	if (!isset($_SESSION['Username']) && !isset($_SESSION['Password']))
 	{
 		include 'views/login.php';
 	}
 	else
 	{
-		$user = getUserFromUsername($_SESSION['Username']);
+		$user = getUserFromUsername($_SESSION['Username']);		
 		include 'views/dashboard.php';
+		$orders = getUserOrders($_SESSION['UserID']);
+		render_output($orders);
+		$details = array();
+		for ($i=0; $i < count($orders); $i++) { 
+			$details[] = getOrderDetail($orders[$i]['OrderID']);
+		}
+
+		print_r($details);
 	}
 	break;
 
@@ -145,9 +154,7 @@ switch ($action) {
 	case 'newOrder':
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
-	// require_once 'models/products.php';
 	if(isset($_SESSION['UserID'])) {
-		createNewOrder($_SESSION['UserID'], 0);
 		$products = getAllProducts();
 		include 'views/order.php';
 	} else {
@@ -158,8 +165,20 @@ switch ($action) {
 	// PLACE ORDER
 	case 'placeOrder':
 	require_once 'models/orders.php';
-	if(isset($_REQUEST['submit'])) {
+	if(isset($_REQUEST['submit']) && isset($_SESSION['userHash'])) {
+
+		// Get product array (id, price)
+		$product = $_REQUEST['ProductID'];
+		// Convert to php array
+		$productArray = explode(',', $product);
+		// grab ID (first key)
+		$productID = array_slice($productArray, 0, 1);
+		// Set REQUEST['id'] to product ID from array
+		$_REQUEST['ProductID'] = implode($productID);
+
+		// add order
 		addOrder($_REQUEST);
+
 		$_SESSION['OrderPlaced'] = true;
 		$_SESSION['Message'] = 'Thank you for placing your order.';
 
