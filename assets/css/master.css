@@ -52,7 +52,7 @@ body, input {
 	font-family: 'SourceSansProLight', helvetica, arial, sans-serif; 
 }
 
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6, .bebas { 
 	font-family: 'BEBASRegular';
 }
 
@@ -433,6 +433,9 @@ header nav.bottom {
 	.page .welcome p {
 		margin-top: 0;
 	}
+
+.newOrder {font-size: 22px;}
+.newOrder a {text-decoration: none;}
 
 /* New Order */
 .order .item.narrow, .order .item.semiNarrow input, .order .item.semiNarrow label, .order .item.medium input, .order .item.wide input, #newOrder .submit, .order .item.wide select, .order .item.wide .selectWrap {float: right;}

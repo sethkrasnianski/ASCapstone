@@ -26,6 +26,7 @@ switch ($action) {
 	// VALIDATE LOGIN
 	case 'validateLogin':
 	require_once 'models/login.php';
+	require_once 'models/orders.php';
 	$username = $_REQUEST['User'];
 	$password = $_REQUEST['Pass'];
 	$userInfo = getUserFromUsername($username);
@@ -44,7 +45,7 @@ switch ($action) {
 		$_SESSION['FirstName'] = $user['FirstName'];
 		$_SESSION['LastName'] = $user['LastName'];
 		$_SESSION['Company'] = $user['Company'];
-		// render_output($_SESSION);
+		$_SESSION['NewUser'] = hasOrder($user);
 		include 'views/dashboard.php';
 	}
 	break;
@@ -131,23 +132,15 @@ switch ($action) {
 	require_once 'models/login.php';
 	require_once 'models/dashboard.php';
 	require_once 'models/orders.php';
-	if (!isset($_SESSION['Username']) && !isset($_SESSION['Password']))
-	{
+	if (!isset($_SESSION['Username']) && !isset($_SESSION['Password'])) {		
 		include 'views/login.php';
-	}
-	else
-	{
-		$user = getUserFromUsername($_SESSION['Username']);		
-		include 'views/dashboard.php';
-		$orders = getUserOrders($_SESSION['UserID']);
-		render_output($orders);
+	} else {
 		$details = array();
-		for ($i=0; $i < count($orders); $i++) { 
-			$details[] = getOrderDetail($orders[$i]['OrderID']);
-		}
-
-		print_r($details);
+		$user = getUserFromUsername($_SESSION['Username']);		
+		$_SESSION['NewUser'] = hasOrder($user['UserID']);
+		include 'views/dashboard.php';
 	}
+
 	break;
 
 	// NEW ORDER
@@ -175,12 +168,13 @@ switch ($action) {
 		$productID = array_slice($productArray, 0, 1);
 		// Set REQUEST['id'] to product ID from array
 		$_REQUEST['ProductID'] = implode($productID);
+		$_REQUEST['PricePaid'] = str_replace("$", "", $_REQUEST['PricePaid']);
 
 		// add order
 		addOrder($_REQUEST);
-
-		$_SESSION['OrderPlaced'] = true;
-		$_SESSION['Message'] = 'Thank you for placing your order.';
+		// Cache Order data
+		$orderResponse = 'Thank you for placing your order.';
+		$_SESSION['NewUser'] = hasOrder($_SESSION['UserID']);
 
 		include 'views/dashboard.php';
 	} else {

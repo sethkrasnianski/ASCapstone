@@ -8,6 +8,7 @@
 				<?php } else { ?>
 					<input type="hidden" name="action" value="placeOrder" />
 					<input type="hidden" name="UserID" value="<?php echo $_SESSION['UserID']; ?>" /> 
+					<input type="hidden" name="PricePaid" id="PricePaid"/>
 				<?php } ?>
 				<div class="col-40">
 					<?php if($_SESSION['PermissionLevel'] <= 2) { ?>
@@ -23,7 +24,7 @@
 					</div>
 					<div class="item narrow">
 						<label>QTY</label>
-						<input id="quantity" class="small" type="text" name="Quantity" />
+						<input id="quantity" class="small" type="text" name="Quantity" value="1" />
 					</div>
 					<div class="clearall"></div>
 					<div class="item">

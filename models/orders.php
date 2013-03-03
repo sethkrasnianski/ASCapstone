@@ -39,6 +39,15 @@ function addOrder($order)
 	$statement->closeCursor();
 }
 
+function hasOrder($userID) {
+	$hasOrder = getOrderDetail($userID);
+	if(isset($hasOrder[0])) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
         function getOrderDetail($userID)
 {
 	/* @var $db PDO */

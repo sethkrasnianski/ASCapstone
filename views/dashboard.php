@@ -1,18 +1,35 @@
 <?php get_header(); ?>
-	<?php get_nav($_SESSION['Company']); ?>
+	<?php render_output($_REQUEST); ?>
+	<?php  isset($_SESSION['UserID']) ? get_nav($_SESSION['Company']) : get_nav('Welcome'); ?>
 	<div class="page">
 		<div class="welcome">
-			<?php echo $_SESSION['UserID']; ?>
-			<?php if($_SESSION['PermissionLevel'] <= 2) { ?>
-				<?php echo "what's up admin / employee?" ?>
+			<?php if($orderResponse){ ?>
+				<h1><?php echo $orderResponse; ?></h1>
 			<?php } else { ?>
-				<?php if($_SESSION['OrderPlaced'] !== true) { ?>
-					<h1>Since this is your first time here,</h1>
-					<p>You may want to start with <a href="?action=newOrder">creating an order</a>.</p>
-				<?php } else { ?>
-					<?php echo $_SESSION['Message']; ?>
-				<?php } ?>
-			<?php } ?>	
+				<?php 
+				// ADMIN
+				if($_SESSION['PermissionLevel'] <= 2) {
+					
+					echo "what's up admin / employee?";
+
+				// CUSTOMER - EXISTING
+				} else if($_SESSION['NewUser'] === 0) { ?>
+					<h1>Since you do not have any orders,</h1>
+					<p class="newOrder">You may want to start with <a class="bebas" href="?action=newOrder">creating an order</a>.</p>
+
+				<?php
+				// CUSTOMER NEW
+				} else if($_SESSION['NewUser'] === 1) {
+					$orders = getUserOrders($_SESSION['UserID']);
+
+					foreach ($orders as $order) {
+						echo "ORDER ID :" . $order['OrderDetailID'] . "<br/>";
+						echo "Quantity: " . $order['Quantity'] . "<br/>";
+						echo "Price Paid: " . $order['PricePaid']. "<br/><br/>";
+					}
+
+				}?>
+			<?php } ?>
 		</div>
 	</div>
 <?php get_footer(); ?>

@@ -1,5 +1,6 @@
 $(function() {
 	productPrice = getPrice();
+	$('#PricePaid').val(productPrice);
 	$('#unitPrice').text(getPrice());
 	getProductTotal();
 	time();
@@ -22,6 +23,7 @@ $(function() {
 			calcQuantity();
 		} else {
 			$('.order #totalPrice').val('$' + productPrice);
+			$('#PricePaid').val(productPrice);
 		}
 	});
 
