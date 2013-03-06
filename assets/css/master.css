@@ -111,8 +111,10 @@ h1 {
 	}
 
 	.center.form {
-		width: 325px;
+		max-width: 325px;
 	}
+
+	.center.all {max-width: 530px;}
 
 .shadow, .play {
 	-moz-box-shadow: 0px 0px 5px #333;
@@ -422,15 +424,15 @@ header nav.bottom {
 
 /* Dashboard */
 
-.page .welcome {
+.page .dashboard {
 	text-align: center;
 }
 
-	.page .welcome h1 {
+	.page .dashboard h1 {
 		margin-bottom: 0;
 	}
 
-	.page .welcome p {
+	.page .dashboard p {
 		margin-top: 0;
 	}
 
@@ -459,4 +461,40 @@ header nav.bottom {
 /* Issues */
 
 .issue {position: absolute; right: 0; bottom: 5%;}
-.issue a {text-decoration: none; color: #000;}
+.issue a, a.editOrder {text-decoration: none; color: #000;}
+
+/* All Orders */
+
+
+.orderWrap {padding: 5% 0 5% 0; position: relative;}
+.orderWrap.odd {background-color: #ccc; background-color: #dfdfdf; box-shadow: inset 0px 0px 5px rgba(50, 50, 50, 0.25);}
+	.all .orderDate.right {margin-right: 0px;}
+	.all .totalPrice, .all .orderDate, .all .quantity {margin-right: 15px;}
+	.all .totalPrice, .all .orderDate {width: 25%;}
+	.all .orderNumber, .all .product {width: 45%;}
+	.all .orderNumber, .all .quantity {float: left;}
+	.all .totalPrice {float: left; margin-left: 130px;}
+	.all .orderDate, .all .product, .orderWrap .editOrder {float: right;}
+	.all .quantity {width: 10%;}
+	.all input {width: 100%;}
+	.all label {float: left;}
+
+@media (max-width: 800px), (max-device-width: 800px) {
+	.col-40, .col-55 {float: none; margin: auto; display: block; position: relative;}
+	.col-40, .col-55, .all {width: 80%;}
+	.all .totalPrice {margin-left: 75px;}
+}
+
+@media (max-width: 715px), (max-device-width: 715px) {
+	#createAccount input, #createAccount textarea {margin: 0 auto 50px auto; display: block;}
+}
+
+@media (max-width: 415px), (max-device-width: 415px) {
+	header .right {font-size: 17px;}
+}
+
+@media (max-width: 461px), (max-device-width: 461px) {
+	#login-box {padding: 30px 0 30px 0;}
+	#login-box, #login-box input {width: 100%;}
+	#login-box .center.form {width: 90%;}
+}

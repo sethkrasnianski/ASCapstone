@@ -1,5 +1,4 @@
 <?php 
-
 	function register_js($path) {
 		return '<script type="text/javascript" src="' . $path . '"></script>';
 	}	

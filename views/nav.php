@@ -9,7 +9,6 @@
 			<?php if($_SESSION['PermissionLevel'] === 3 || $_SESSION['PermissionLevel'] === 1) { ?>
 				<a href="?action=newOrder"><span class="plus">+</span> New Order</a>
 			<?php } ?>
-			<a href="?action=allOrders">All Orders</a>
 			<?php if($_SESSION['PermissionLevel'] === 3 || $_SESSION['PermissionLevel'] === 1) { ?>
 				<a href="#">Delete Order</a>
 			<?php } ?>

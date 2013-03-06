@@ -52,7 +52,7 @@ function hasOrder($userID) {
 {
 	/* @var $db PDO */
 	global $db;
-	$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID;';
+	$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':UserID', $userID);
 	$statement->execute();

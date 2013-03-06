@@ -14,7 +14,8 @@ try
 }
 catch (PDOException $ex) {
     error_log($ex->getMessage());
+    require_once('models/render.php');
     $error = 'Could connect to the database. Try later.';
-    include('view-error.php');
+    include('views/errors.php');
     exit();
 }

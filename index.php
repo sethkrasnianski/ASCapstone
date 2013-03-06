@@ -27,6 +27,7 @@ switch ($action) {
 	case 'validateLogin':
 	require_once 'models/login.php';
 	require_once 'models/orders.php';
+	require_once 'models/products.php';
 	$username = $_REQUEST['User'];
 	$password = $_REQUEST['Pass'];
 	$userInfo = getUserFromUsername($username);
@@ -45,7 +46,7 @@ switch ($action) {
 		$_SESSION['FirstName'] = $user['FirstName'];
 		$_SESSION['LastName'] = $user['LastName'];
 		$_SESSION['Company'] = $user['Company'];
-		$_SESSION['NewUser'] = hasOrder($user);
+		$_SESSION['NewUser'] = hasOrder($user['UserID']);
 		include 'views/dashboard.php';
 	}
 	break;
@@ -131,6 +132,7 @@ switch ($action) {
 	case 'dashboard':
 	require_once 'models/login.php';
 	require_once 'models/dashboard.php';
+	require_once 'models/products.php';
 	require_once 'models/orders.php';
 	if (!isset($_SESSION['Username']) && !isset($_SESSION['Password'])) {		
 		include 'views/login.php';

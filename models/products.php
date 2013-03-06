@@ -10,4 +10,14 @@
 		return $results;
 	}
 
+	function getOneProduct($productID) {
+		global $db;
+		$query = "SELECT * FROM Product WHERE ProductID = :ProductID";
+		$statement = $db->prepare($query);
+		$statement->bindValue(':ProductID', $productID);
+		$statement->execute();
+		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+		$statement->closeCursor();
+		return $results;
+	}
 ?>
