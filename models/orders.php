@@ -17,9 +17,9 @@ function addOrder($order)
 	global $db;
 
 	$query = 'INSERT INTO OrderDetail (UserID, Quantity, ProductID, StatusID,
-				ProjectedShipDate, OrderDate, TaskID, ActualShipDate, PONumber, SpecialAssignment1, SpecialAssignment2, SpecialAssignment3, PricePaid, Comments) 
+				ProjectedShipDate, OrderDate, TaskID, ActualShipDate, PONumber, SpecialAssignment1, SpecialAssignment2, SpecialAssignment3, PricePaid) 
               VALUES (:UserID, :Quantity, :ProductID, :StatusID, :ProjectedShipDate, 
-                :OrderDate, :TaskID, :ActualShipDate, :PONumber, :SpecialAssignment1, :SpecialAssignment2, :SpecialAssignment3, :PricePaid, :Comments)';
+                :OrderDate, :TaskID, :ActualShipDate, :PONumber, :SpecialAssignment1, :SpecialAssignment2, :SpecialAssignment3, :PricePaid)';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':UserID', $order['UserID']);
 	$statement->bindValue(':Quantity', $order['Quantity']);
@@ -34,7 +34,6 @@ function addOrder($order)
 	$statement->bindValue(':SpecialAssignment2', $order['SpecialAssignment2']);
 	$statement->bindValue(':SpecialAssignment3', $order['SpecialAssignment3']);	
 	$statement->bindValue(':PricePaid', $order['PricePaid']);
-	$statement->bindValue(':Comments', $order['Comments']);
 	$statement->execute();
 	$statement->closeCursor();
 }
@@ -52,7 +51,7 @@ function hasOrder($userID) {
 {
 	/* @var $db PDO */
 	global $db;
-	$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID';
+	$query = 'SELECT * FROM OrderDetail WHERE UserID = :UserID;';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':UserID', $userID);
 	$statement->execute();
@@ -60,19 +59,44 @@ function hasOrder($userID) {
 	$statement->closeCursor();
 	return $results;
 }
-        
+     
+
+        function getOrderByOrderDetail($orderDetailID)
+{
+	/* @var $db PDO */
+	global $db;
+	$query = 'SELECT * FROM OrderDetail WHERE OrderDetailID = :OrderDetailID;';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':OrderDetailID', $orderDetailID);
+	$statement->execute();
+	$result = $statement->fetch(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $result;
+}
+
+        function getOrderDetailID()
+        {
+            /* @var $db PDO */
+            global $db;
+            $query = 'SELECT OrderDetailID FROM OrderDetail ORDER BY OrderDetailID DESC LIMIT 1';
+            $statement = $db->prepare($query);
+            $statement->execute();
+	$results = $statement->fetch();
+	$statement->closeCursor();
+        return $results;
+        }
+
         function updateOrder($order)
 {
 	/* @var $db PDO */
 	global $db;
 
-	$query = 'UPDATE OrderDetailTable Set OrderID = :OrderID, Quantity = :Quantity, ProductID = :ProductID, StatusID = :StatusID,
+	$query = 'UPDATE OrderDetailTable Set Quantity = :Quantity, ProductID = :ProductID, StatusID = :StatusID,
 		ProjectedShipDate = :ProjectedShipDate, OrderDate = :OrderDate, TaskAssignmentID = :TaskAssignmentID, ActualShipDate = :ActualShipDate, 
                 PONumber = :PONumber, SpecialAssignment1 = :SpecialAssignment1, SpecialAssignment2 = :SpecialAssignment2, 
                 SpecialAssignment3 = :SpecialAssignment3, PricePaid = :PricePaid, CommentID = :CommentID, WHERE OrderDetailID = :OrderDetailID'; 
                 
 	$statement = $db->prepare($query);
-	$statement->bindValue(':OrderID', $order['OrderID']);
 	$statement->bindValue(':Quantity', $order['Quantity']);
 	$statement->bindValue(':ProductID', $order['ProductID']);
 	$statement->bindValue(':StatusID', $order['StatusID']);

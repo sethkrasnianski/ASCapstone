@@ -23,7 +23,7 @@
 		require_once "views/nav.php";
 	}
 
-	function render_output($array) {
+	function debug($array) {
 		echo "<pre>";
 		print_r($array);
 		echo "</pre>";

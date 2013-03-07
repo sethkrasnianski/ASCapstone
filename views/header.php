@@ -8,7 +8,7 @@
 	<?php echo render_js("main.js"); ?>
 
 	<!-- order -->
-	<?php if ($_SERVER['REQUEST_URI'] === '/ASCapstone/?action=newOrder') {
+	<?php if ($_SERVER['REQUEST_URI'] === '/ASCapstone/?action=newOrder' || $_REQUEST['action'] === "editOrder") {
     	echo render_js("orders.js");
 	} ?>
 

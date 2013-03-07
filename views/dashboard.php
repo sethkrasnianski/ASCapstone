@@ -11,20 +11,14 @@
 				</script>
 			<?php } else { ?>
 				<?php 
-				// ADMIN
-				if($_SESSION['PermissionLevel'] <= 2) {
-					
-					echo "what's up admin / employee?";
-
-				// CUSTOMER - EXISTING
-				} else if($_SESSION['NewUser'] === 0) { ?>
+				// NEW USER
+				if($_SESSION['ExistingUser'] === 0) { ?>
 					<h1>Since you do not have any orders,</h1>
 					<p class="newOrder">You may want to start with <a class="bebas" href="?action=newOrder">creating an order</a>.</p>
 
 				<?php
-				// CUSTOMER NEW
-				} else if($_SESSION['NewUser'] === 1) {
-					$orders = getUserOrders($_SESSION['UserID']);
+				// EXISTING USER / ADMIN
+				} else if($_SESSION['ExistingUser'] === 1 || $_SESSION['PermissionLevel'] <= 2) {
 					date_default_timezone_set('America/New_York');
 					$i = 0;
 					foreach ($orders as $order) { ?>
@@ -32,6 +26,8 @@
 							<?php $product = getOneProduct($order['ProductID']); ?>
 							<?php $i++; ?>
 							<form action="." method="post" class="all center">
+								<input type="hidden" name="action" value="editOrder" />
+								<input type="hidden" name="OrderDetailID" value="<?php echo $order['OrderDetailID']; ?>" />
 								<div class="orderNumber">
 									<label>Order Number</label>
 									<input disabled="true" value="<?php echo $order['OrderDetailID']; ?>" />
@@ -54,7 +50,8 @@
 									<input disabled="true" value="<?php echo date_format(date_create($order['OrderDate']), 'm/d/Y'); ?>" />
 								</div>
 								<div class="clearall"></div>
-								<a href="?action=editOrder" class="editOrder">Edit Order</a>
+								<!-- <a href="?action=editOrder">View/Edit Order</a> -->
+								<input type="submit" value="View/Edit Order" name="submit" class="editOrder" />
 							</form>
 							<div class="clearall"></div>
 						</div>

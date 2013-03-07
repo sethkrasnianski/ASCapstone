@@ -1,17 +1,14 @@
 <?php
-function addComment($CommentID, $Comment, $CommentDetailID)
+function addCommentDetail($Comment, $OrderDetailID)
 {
 	/* @var $db PDO */
 	global $db;
 
-	$query = 'INSERT INTO CommentDetailTable (Comment, CommentDetailID)
-                VALUES (:Comment, :CommentDetailID) WHERE CommentID = :CommentID';
+	$query = 'INSERT INTO CommentDetail (Comment, OrderDetailID)
+                VALUES (:Comment, :OrderDetailID)';
 	$statement = $db->prepare($query);
-	$statement->bindValue(':Comment', $comment);
-	$statement->bindValue(':CommentDetailID', $commentDetailID);
-        $statement->bindValue(':CommentID', $CommentID);
-	
-
+	$statement->bindValue(':Comment', $Comment);
+        $statement->bindValue(':OrderDetailID', $OrderDetailID);
 	$statement->execute();
 	$statement->closeCursor();
         
@@ -19,6 +16,32 @@ function addComment($CommentID, $Comment, $CommentDetailID)
         
         
 }
+
+function addCommentID($orderDetailID, $commentDetailID)
+{
+    /* @var $db PDO */
+	global $db;
+        
+    $query = 'INSERT INTO Comment (OrderDetailID, CommentDetailID)
+                VALUES (:OrderDetailID, :CommentDetailID)';
+    $statement = $db->prepare($query);
+	$statement->bindValue(':OrderDetailID', $orderDetailID);
+        $statement->bindValue(':CommentDetailID', $commentDetailID);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+ function getCommentDetailID()
+        {
+            global $db;
+            $query = 'SELECT CommentDetailID FROM CommentDetail ORDER BY CommentDetailID DESC LIMIT 1';
+            $statement = $db->prepare($query);
+            $statement->execute();
+	$results = $statement->fetch();
+	$statement->closeCursor();
+        return $results;
+        }
+
 
  function getComment($CommentID)
 {

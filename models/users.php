@@ -33,6 +33,18 @@ function addUser($user) {
 	}
 }
 
+function getAllEmployees()
+{
+	/* @var $db PDO */
+	global $db;
+	$query = 'SELECT * FROM UserTable WHERE PermissionLevel = 2';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	return $results;
+}
+
 function getUser($userID)
 {
 	/* @var $db PDO */

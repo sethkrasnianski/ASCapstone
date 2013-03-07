@@ -1,4 +1,17 @@
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+
+var yyyy = today.getFullYear();
+if(dd<10){dd='0'+dd} 
+if(mm<10){mm='0'+mm} 
+
+var today = yyyy + '-' + dd + '-' + mm;
+
 $(function() {
+	setTimeout(function() {
+		calcQuantity();
+	});
 	productPrice = getPrice();
 	$('#PricePaid').val(productPrice);
 	$('#unitPrice').text(getPrice());
@@ -11,6 +24,7 @@ $(function() {
 	});
 
 	// Datepicker
+	$('#orderDate').val(today);
 	$('#orderDate').datepicker({ dateFormat: "yy-mm-dd" });
 	$('#shipDate').datepicker({ dateFormat: "yy-mm-dd" });
 	$('#actualDate').datepicker({ dateFormat: "yy-mm-dd" });
@@ -78,7 +92,6 @@ $(function() {
 	});
 
 	$('#quantity').keyup(function() {
-		quantity = $(this).val();
 		calcQuantity();
 	});
 
@@ -110,6 +123,6 @@ function getPrice() {
 }
 
 function calcQuantity() {
-	var total = quantity * getPrice();
+	var total = $('#quantity').val() * getPrice();
 	$('.order #totalPrice').val('$' + total);
 }

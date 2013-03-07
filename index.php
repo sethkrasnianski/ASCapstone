@@ -46,7 +46,10 @@ switch ($action) {
 		$_SESSION['FirstName'] = $user['FirstName'];
 		$_SESSION['LastName'] = $user['LastName'];
 		$_SESSION['Company'] = $user['Company'];
-		$_SESSION['NewUser'] = hasOrder($user['UserID']);
+		if(hasOrder($_SESSION['UserID']) === 1 || $_SESSION['PermissionLevel'] === 2 || $_SESSION['PermissionLevel'] === 1) {
+			$_SESSION['ExistingUser'] = 1;
+		}
+		$orders = getUserOrders($_SESSION['UserID']);
 		include 'views/dashboard.php';
 	}
 	break;
@@ -139,7 +142,11 @@ switch ($action) {
 	} else {
 		$details = array();
 		$user = getUserFromUsername($_SESSION['Username']);		
-		$_SESSION['NewUser'] = hasOrder($user['UserID']);
+		if(hasOrder($_SESSION['UserID']) === 1 || $_SESSION['PermissionLevel'] === 2 || $_SESSION['PermissionLevel'] === 1) {
+			$_SESSION['ExistingUser'] = 1;
+		}
+		
+		$orders = getUserOrders($_SESSION['UserID']);
 		include 'views/dashboard.php';
 	}
 
@@ -150,7 +157,9 @@ switch ($action) {
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
 	if(isset($_SESSION['UserID'])) {
+		$_SESSION['editStatus'] = 0;
 		$products = getAllProducts();
+		$employees = getAllEmployees();
 		include 'views/order.php';
 	} else {
 		render_error('Something went wrong.');
@@ -171,12 +180,14 @@ switch ($action) {
 		// Set REQUEST['id'] to product ID from array
 		$_REQUEST['ProductID'] = implode($productID);
 		$_REQUEST['PricePaid'] = str_replace("$", "", $_REQUEST['PricePaid']);
-
+		
 		// add order
 		addOrder($_REQUEST);
 		// Cache Order data
 		$orderResponse = 'Thank you for placing your order.';
-		$_SESSION['NewUser'] = hasOrder($_SESSION['UserID']);
+		if(hasOrder($_SESSION['UserID']) === 1 || $_SESSION['PermissionLevel'] === 2 || $_SESSION['PermissionLevel'] === 1) {
+			$_SESSION['ExistingUser'] = 1;
+		}
 
 		include 'views/dashboard.php';
 	} else {
@@ -184,6 +195,21 @@ switch ($action) {
 	}
 	break;
 
+	// EDIT ORDER
+	case 'editOrder':
+	require_once 'models/orders.php';
+	require_once 'models/products.php';
+	if(isset($_SESSION['UserID'])) {
+		$_SESSION['editStatus'] = 1;
+		$orderDetailID = $_REQUEST['OrderDetailID'];
+		$products = getAllProducts();
+		$order = getOrderByOrderDetail($orderDetailID);
+
+		include 'views/order.php';
+	} else {
+		render_error('Something went wrong.');
+	}
+	break;
 
 	// ALL ORDERS
 	case 'allOrders':
