@@ -4,7 +4,7 @@ try
     $db=new PDO(
             'mysql:host=localhost;dbname=ASCapstone', //dsn
             'root',//username
-            'figspigs',//password
+            '',//password
             //options:
             array(
                 PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
