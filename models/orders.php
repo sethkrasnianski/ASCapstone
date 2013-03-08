@@ -61,6 +61,19 @@ function hasOrder($userID) {
 }
      
 
+ function getOrderDetailFromTaskTable($userID)
+{
+	/* @var $db PDO */
+	global $db;
+	$query = 'SELECT OrderDetailID FROM TaskTable WHERE UserID = :UserID;';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $userID);
+	$statement->execute();
+	$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $results;
+}
+
         function getOrderByOrderDetail($orderDetailID)
 {
 	/* @var $db PDO */
@@ -127,6 +140,16 @@ function hasOrder($userID) {
 			return $results;
         }
         
+         function getAllOrders() {
+            /* @var $db PDO */
+			global $db;
+			$query = 'SELECT * FROM OrderDetail';
+			$statement = $db->prepare($query);			
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			$statement->closeCursor();
+			return $results;
+        }
         
         //add more retrieve order functions for returning sorted lists
         

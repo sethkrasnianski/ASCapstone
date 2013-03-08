@@ -43,18 +43,22 @@ function addCommentID($orderDetailID, $commentDetailID)
         }
 
 
- function getComment($CommentID)
+//Mike 3-7        
+        
+ function getComment($OrderDetailID)
 {
 	/* @var $db PDO */
 	global $db;
-	$query = 'SELECT * FROM CommentDetailTable WHERE OrderDetailID = :OrderDetailID;';
+	$query = 'SELECT * FROM CommentDetail WHERE OrderDetailID = :OrderDetailID;';
 	$statement = $db->prepare($query);
-	$statement->bindValue(':OrderID', $OrderID);
+	$statement->bindValue(':OrderDetailID', $OrderDetailID);
 	$statement->execute();
 	$results = $statement->fetch();
 	$statement->closeCursor();
 	return $results;
 }
+
+//end Mike 3-7
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

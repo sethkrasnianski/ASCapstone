@@ -95,7 +95,7 @@
 					<div class="clearall"></div>
 					<div class="item">
 						<label>Comments</label>
-						<textarea name="Comments"></textarea>
+						<textarea name="Comments"><?php echo $comments['Comment'] ?></textarea>
 					</div>
 					<div class="item medium">
 						<label class="heightfix">Total Price</label>

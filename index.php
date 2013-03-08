@@ -146,8 +146,31 @@ switch ($action) {
 			$_SESSION['ExistingUser'] = 1;
 		}
 		
-		$orders = getUserOrders($_SESSION['UserID']);
-		include 'views/dashboard.php';
+		if($_SESSION['PermissionLevel'] === 1)
+                    {
+                        $orders = getAllOrders();
+                
+                    }
+                    
+                    //*******************************
+                    //WIP Mike 3-7
+                    
+                else if ($_SESSION['PermissionLevel'] === 2)
+                {
+                    $orderDetailIDs = getOrderDetailFromTaskTable($_SESSION['UserID']);
+                    foreach($orderDetailIDs as $orderDetailID)
+                    {
+                        $orders = getOrderByOrderDetail($orderDetailID);
+                    }
+                 
+                }
+                
+                    //**********************************
+                else
+                {
+                    $orders = getUserOrders($_SESSION['UserID']);
+                }
+                        include 'views/dashboard.php';
 	}
 
 	break;
@@ -199,10 +222,15 @@ switch ($action) {
 	case 'editOrder':
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
+        require_once 'models/comments.php';
 	if(isset($_SESSION['UserID'])) {
 		$_SESSION['editStatus'] = 1;
 		$orderDetailID = $_REQUEST['OrderDetailID'];
 		$products = getAllProducts();
+                
+                //Mike 3-7
+                $comments = getComment($orderDetailID);
+                //end Mike 3-7
 		$order = getOrderByOrderDetail($orderDetailID);
 
 		include 'views/order.php';
