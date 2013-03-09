@@ -22,7 +22,7 @@ switch ($action) {
 
 	// LOGIN
 	case 'login':
-	$page_title = "Login";
+	$doc_title = "Login";
 	$_SESSION['newPassword'] = false;
 	echo $_SESSION['newPassword'];
 	include 'views/login.php';
@@ -30,6 +30,7 @@ switch ($action) {
 
 	// VALIDATE LOGIN
 	case 'validateLogin':
+	$doc_title = "Login";
 	require_once 'models/login.php';
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
@@ -62,17 +63,20 @@ switch ($action) {
 	// CONTACT US / REPORT ISSUE
 
 	case 'issue':
+	$doc_title = "Report Issue";
 	include_once('views/contact.php');
 	break;
 
 	// CREATE ACCOUNT
 	case 'createAccount':
+	$doc_title = "Create Account";
 	require_once 'models/users.php';
 	include 'views/createAccount.php';
 	break;
 
 	// ADD ACCOUNT
 	case 'addAccount':
+	$doc_title = "New User";
 	require_once 'models/addAccount.php';
 	require_once 'models/login.php';
 	if(validateNewUser($_REQUEST) === true) {
@@ -97,12 +101,14 @@ switch ($action) {
 
 	// FORGOT PASSWORD
 	case 'forgotPassword':
+	$doc_title = "Password Recovery";
 	require_once 'models/forgotPassword.php';
 	include 'views/forgotpassword.php';
 	break;
 
 	// SECURITY QUESTIONS
 	case 'securityQuestions':
+	$doc_title = "Security Questions";
 	require_once 'models/forgotPassword.php';
 	$email = $_REQUEST['email'];
 	$_SESSION['Email'] = $email;	
@@ -118,6 +124,7 @@ switch ($action) {
 
 	// PASSWORD RESET
 	case 'passwordReset':
+	$doc_title = "Password Reset";
 	require_once 'models/forgotPassword.php';
 	$userAnswer = $_REQUEST['userAnswer'];
 	$correctAnswer = $_SESSION['correctAnswer'];
@@ -130,6 +137,7 @@ switch ($action) {
 
 	// VALIDATE NEW PASSWORD
 	case 'validateNewPassword':
+	$doc_title = "Password Validation";
 	require_once 'models/forgotPassword.php';
 	$password1 = $_REQUEST['password1'];
 	$password2 = $_REQUEST['password2'];
@@ -144,6 +152,7 @@ switch ($action) {
 
 	// DASHBOARD
 	case 'dashboard':
+	$doc_title = "DashBoard";
 	require_once 'models/login.php';
 	require_once 'models/dashboard.php';
 	require_once 'models/products.php';
@@ -188,6 +197,7 @@ switch ($action) {
 
 	// NEW ORDER
 	case 'newOrder':
+	$doc_title = "New Order";
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
 	if(isset($_SESSION['UserID'])) {
@@ -202,6 +212,7 @@ switch ($action) {
 
 	// PLACE ORDER
 	case 'placeOrder':
+	$doc_title = "Place Order";
 	require_once 'models/orders.php';
 	if(isset($_REQUEST['submit']) && isset($_SESSION['userHash'])) {
 
@@ -231,6 +242,7 @@ switch ($action) {
 
 	// EDIT ORDER
 	case 'editOrder':
+	$doc_title = "Edit Existing Order";
 	require_once 'models/orders.php';
 	require_once 'models/products.php';
         require_once 'models/comments.php';
@@ -252,6 +264,7 @@ switch ($action) {
 
 	// ALL ORDERS
 	case 'allOrders':
+	$doc_title = "Orders";
 	require_once 'models/orders.php';
 	if(isset($_SESSION['UserID'])) {
 		include 'views/allOrders.php';
@@ -262,6 +275,7 @@ switch ($action) {
 
 	// LOGOUT
 	case 'logOut':
+	$doc_title = "Log Out";
 	session_start();
     session_unset();
     session_destroy();
@@ -273,11 +287,13 @@ switch ($action) {
 
 	// ----- EMPLOYEE ----- //
 	case 'orderEmployee':
+	$doc_title = "Order";
 	include 'views/order-employee.php';
 	break;
 
 	// UNKNOWN ACTION
 	default:
+	$doc_title = "Unknown";
 		render_error('Unknown request.');
 	break;
 }

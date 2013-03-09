@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header($doc_title); ?>
 	<?php get_nav("Forgot Password"); ?>
 	<div class="center page">
 		<div class="error"><?php echo $error; ?></div>

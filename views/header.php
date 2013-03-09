@@ -1,8 +1,6 @@
 <html>
 <head>
-
-	
-	<title><?php echo $page_title;?></title>
+	<title><?php echo $doc_title;?></title>
 	<?php echo render_css("master.css"); ?>
 	<?php echo render_css("jquery-ui.css"); ?>
 	<?php echo render_js("jquery.js"); ?>

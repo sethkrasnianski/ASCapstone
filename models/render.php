@@ -11,7 +11,7 @@
 		return '<link rel="stylesheet" type="text/css" href="assets/css/' . $path . '" />';
 	}
 
-	function get_header() {
+	function get_header($doc_title) {
 		require_once "views/header.php";
 	}
 

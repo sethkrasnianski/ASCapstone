@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header($doc_title); ?>
 <div id="login-box">
 	<div class="center form">
 		<form action="." method="post">

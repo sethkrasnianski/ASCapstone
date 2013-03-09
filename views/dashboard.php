@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header($doc_title); ?>
 	<?php  isset($_SESSION['UserID']) ? get_nav($_SESSION['Company']) : get_nav('Welcome'); ?>
 	<div class="page">
 		<div class="dashboard">

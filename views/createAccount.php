@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header($doc_title); ?>
 	<?php get_nav("Create New User"); ?>
 	<div class="page">
 		<div class="error"><?php echo $error; ?></div>

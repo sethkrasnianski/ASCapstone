@@ -1,4 +1,4 @@
-/* Fonts */
+/**************************************** Fonts *****************************************************************/
 
 @font-face {
     font-family: 'BEBASRegular';
@@ -34,7 +34,7 @@
 
 }
 
-/* Global */
+/**************************************** Global *****************************************************************/
 
 html { 
 	-webkit-font-smoothing: antialiased; 
@@ -231,7 +231,7 @@ input, #login-box, textarea, select {border-radius: 3px;}
 		padding: 9px;
 	}
 
-/* Nav */
+/**************************************** Nav *****************************************************************/
 
 header nav.top {
 	background: #333333;
@@ -323,7 +323,7 @@ header nav.bottom {
 			text-decoration: underline;
 		}
 
-/* Page */
+/**************************************** Page *****************************************************************/
 
 .page .button.submit {
 	clear: both;
@@ -349,7 +349,7 @@ header nav.bottom {
 		color: #00C964;
 	}
 
-/* Login */
+/****************************************** Login *****************************************************************/
 
 #login-box{
 	margin:100px auto 0px auto;
@@ -402,7 +402,8 @@ header nav.bottom {
 				text-decoration: none;
 			}
 
-/* Forgot Password */
+/******************************** Forgot Password *****************************************************************/
+
 #forgotPassword {
 	margin: 0 auto;
 	width: 60%;
@@ -421,11 +422,11 @@ header nav.bottom {
 		width: 100%;
 	}
 
-/* Contact Us */
+/************************************* Contact Us ****************************************************************/
 
 #contact-form{
 	/*border: 1px solid red;*/
-	width:600px;
+	width:400px;
 	margin:0px auto;
 }
 
@@ -437,23 +438,16 @@ header nav.bottom {
 }
 
 
-.contact-label{
-	font-family:helvetica;
-	size:14pts;
-	padding-top:20px;
-	/*border: 1px solid blue;*/
-	font-weight: 600;
-}
-
 #contact-form .button{
 	width:100px;
 }
 
 .submit-wrap{
-	width:400px;
+	width:325px;
+	/*border: 1px solid red;*/
 }
 
-/* Dashboard */
+/*************************************** Dashboard **************************************************************/
 
 .page .dashboard {
 	text-align: center;
@@ -470,7 +464,8 @@ header nav.bottom {
 .newOrder {font-size: 22px;}
 .newOrder a {text-decoration: none;}
 
-/* New Order */
+/************************************** New Order ****************************************************************/
+
 .order .item.narrow, .order .item.semiNarrow input, .order .item.semiNarrow label, .order .item.medium input, .order .item.wide input, #newOrder .submit, .order .item.wide select, .order .item.wide .selectWrap {float: right;}
 .order .item label, .order .item input {display: inline-block;}
 .order label.checkfix, #newOrder .submit {float: left;}
@@ -489,13 +484,14 @@ header nav.bottom {
 .order .item.medium input {width: 60%;}
 .order .item.medium input {width: 50%;}
 
-/* Issues */
+
+/************************************* Issues ***********************************************************************/
 
 .issue {position: absolute; right: 0; bottom: 5%;}
 .issue a, a.editOrder {text-decoration: none; color: #000;}
 
-/* All Orders */
 
+/*********************************** All Orders **********************************************************************/
 
 .orderWrap {padding: 5% 0 5% 0; position: relative;}
 .orderWrap.odd {background-color: #ccc; background-color: #dfdfdf; box-shadow: inset 0px 0px 5px rgba(50, 50, 50, 0.25);}
