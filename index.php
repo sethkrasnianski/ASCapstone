@@ -22,7 +22,7 @@ switch ($action) {
 
 	// LOGIN
 	case 'login':
-	$_SESSION['page_title'] = "Login";
+	$page_title = "Login";
 	$_SESSION['newPassword'] = false;
 	echo $_SESSION['newPassword'];
 	include 'views/login.php';
