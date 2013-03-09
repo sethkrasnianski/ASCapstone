@@ -1,5 +1,9 @@
 <?php
+
+error_reporting(E_ALL ^ E_NOTICE);
+
 session_start();
+
 
 require_once('models/db.php');
 require_once('models/render.php');
@@ -11,13 +15,14 @@ if (isset($_REQUEST['action']))
 }
 else
 {
-	$action = 'login'; // default pageww
+	$action = 'login'; // default page
 }
 
 switch ($action) {
 
 	// LOGIN
 	case 'login':
+	$_SESSION['page_title'] = "Login";
 	$_SESSION['newPassword'] = false;
 	echo $_SESSION['newPassword'];
 	include 'views/login.php';
@@ -52,6 +57,12 @@ switch ($action) {
 		$orders = getUserOrders($_SESSION['UserID']);
 		include 'views/dashboard.php';
 	}
+	break;
+
+	// CONTACT US / REPORT ISSUE
+
+	case 'issue':
+	include_once('views/contact.php');
 	break;
 
 	// CREATE ACCOUNT

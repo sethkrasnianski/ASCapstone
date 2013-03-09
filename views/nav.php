@@ -12,7 +12,7 @@
 			<?php if($_SESSION['PermissionLevel'] === 3 || $_SESSION['PermissionLevel'] === 1) { ?>
 				<a href="#">Delete Order</a>
 			<?php } ?>
-			<a href="#" class="last">Contact Us</a>
+			<a href="?action=issue" class="last">Contact Us</a>
 		</div>
 	</nav>
 </header>

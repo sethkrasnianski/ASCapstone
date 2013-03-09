@@ -327,7 +327,6 @@ header nav.bottom {
 
 .page .button.submit {
 	clear: both;
-	display: block;
 	margin-left: 0;
 }
 
@@ -421,6 +420,32 @@ header nav.bottom {
 	#forgotPassword input[type='text'] {
 		width: 100%;
 	}
+
+/* Contact Us */
+
+#contact-form{
+	border: 1px solid red;
+}
+
+.control-box{
+	float: left;
+	height: 100px;
+	border: 1px solid red;
+}
+
+.contact-label{
+	font-family:helvetica;
+	size:14pts;
+	font-weight: 600;
+}
+
+#contact-form .button{
+	width:100px;
+}
+
+.submit-wrap{
+	width:400px;
+}
 
 /* Dashboard */
 

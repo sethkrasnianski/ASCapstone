@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title></title>
+	<title><?php echo $_SESSION['page_title'];?></title>
 	<?php echo render_css("master.css"); ?>
 	<?php echo render_css("jquery-ui.css"); ?>
 	<?php echo render_js("jquery.js"); ?>
